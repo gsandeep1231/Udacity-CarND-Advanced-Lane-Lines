@@ -20,3 +20,8 @@ I start by defining function <B>calibrate_camera</B> where I prepare "object poi
 
 I then used the output objpoints and imgpoints to undistort the image inside the function <b>undistort_image</b>. In this fucntion I first compute the camera calibration and distortion coefficients using the cv2.calibrateCamera() function. I applied this distortion correction to the test image using the cv2.undistort() function and obtained this result
 ![alt tag](README_images/chessboard1.png)
+
+###2. Pipeline (test_images)
+
+Using the same function mentioned earlier, <b>undistort_image</b>, I first undistort the test image.
+![alt tag](README_images/pipe_undist.png)
