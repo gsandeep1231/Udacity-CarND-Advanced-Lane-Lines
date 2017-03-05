@@ -77,4 +77,4 @@ Finally in function <b>add_data_to_image</b> I add these two data to the final i
 I have uploaded the final video output to my git repository.
 
 ###Discussion
-I noticed that in the final video, the lane lines are too wobbly when the road texture changes to very bright and reflective. I can thus use better color thresholding algorithm to avoid this. The radius of curvature too is not very constant in between the frames, I can may be use a better algorithm to determine radius of curvature and also not keep updating it frequently, only after certain number of frames.
+I noticed that in the final video, the lane lines are too wobbly when the road texture changes to very bright and reflective. I can thus use better color thresholding algorithm to avoid this and modify the lane lines fitting function too. The radius of curvature too is not very constant in between the frames, I can may be use a better algorithm to determine radius of curvature and also not keep updating it frequently, only after certain number of frames.
