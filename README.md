@@ -65,7 +65,6 @@ I defined function <b>get_radius_curvature</b> to calculate radius of curvature.
     ym_per_pix = 30/720 # meters per pixel in y dimension
     xm_per_pix = 3.7/700 # meters per pixel in x dimension
 Once I have this new polynomial, I used the formula from the lecture to find the curvature of left and right lanes:
-# Calculate the new radii of curvature
     left_curverad = ((1 + (2*left_fit_cr[0]*y_eval*ym_per_pix + left_fit_cr[1])**2)**1.5) / np.absolute(2*left_fit_cr[0])
     right_curverad = ((1 + (2*right_fit_cr[0]*y_eval*ym_per_pix + right_fit_cr[1])**2)**1.5) / np.absolute(2*right_fit_cr[0])
 
@@ -73,4 +72,9 @@ For distance off center, I use function <b>get_off_center_distance</b>. Using im
 
 Finally in function <b>add_data_to_image</b> I add these two data to the final image. I use average of left and right curvature and print that on the image as below:
 ![alt tag](README_images/pipe_final.png)
+
+###Pipeline (video)
+I have uploaded the final video output to my git repository.
+
+###Discussion
 
