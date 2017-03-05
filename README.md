@@ -50,6 +50,27 @@ Using these src and dst points, I calculate M = cv2.getPerspectiveTransform(src,
 
 I also drew polygons for src and dst points to verify my warping function is working fine.
 ![alt tag](README_images/pipe_persp_src.png)
-![alt tag](README_images/pipe_persp_dst.png)
 
+Below is the output of the warped binary image:
+![alt tag](README_images/pipe_persp.png)
+
+####4. Fitting lane lines
+In my function <b>fit_lane_lines</b> I used sliding window to first calulate my left and right lane points. Once I had my points, I used np.polyfit to fit a second order polynomial on these points. Below is the output of this function:
+![alt tag](README_images/pipe_fit_lines.png)
+
+I also created function <b>fit_new_lane_lines</b> to fit lines for newer frames in video. Since once a line is calculated we need not do sliding window technique again, but just keep modifying the polynomial coefficients.
+
+####5. Calculate Radius of Curvature and Distance from center.
+I defined function <b>get_radius_curvature</b> to calculate radius of curvature. First I fit a new polynomial to the world space instead of image space. I use the pixels to space conversion parameters:
+    ym_per_pix = 30/720 # meters per pixel in y dimension
+    xm_per_pix = 3.7/700 # meters per pixel in x dimension
+Once I have this new polynomial, I used the formula from the lecture to find the curvature of left and right lanes:
+# Calculate the new radii of curvature
+    left_curverad = ((1 + (2*left_fit_cr[0]*y_eval*ym_per_pix + left_fit_cr[1])**2)**1.5) / np.absolute(2*left_fit_cr[0])
+    right_curverad = ((1 + (2*right_fit_cr[0]*y_eval*ym_per_pix + right_fit_cr[1])**2)**1.5) / np.absolute(2*right_fit_cr[0])
+
+For distance off center, I use function <b>get_off_center_distance</b>. Using image histogram I first get pixel value of left base and right base where we see the lane lines. Then I caluclate the lane center using these values. Image center is half of image shape in x direction. The difference between lane center and image center gives us the off center distance. Then I convert the pixel values to world space by using xm_per_pix = 3.7/700.
+
+Finally in function <b>add_data_to_image</b> I add these two data to the final image. I use average of left and right curvature and print that on the image as below:
+![alt tag](README_images/pipe_final.png)
 
