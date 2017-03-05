@@ -20,6 +20,7 @@ I start by defining function <B>calibrate_camera</B> where I prepare "object poi
 
 I then used the output objpoints and imgpoints to undistort the image inside the function <b>undistort_image</b>. In this fucntion I first compute the camera calibration and distortion coefficients using the cv2.calibrateCamera() function. I applied this distortion correction to the test image using the cv2.undistort() function and obtained this result
 ![alt tag](README_images/chessboard1.png)
+![alt tag](README_images/chessboard1_undist.png)
 
 ###Pipeline (test_images)
 
@@ -30,3 +31,25 @@ Using the same function mentioned earlier, <b>undistort_image</b>, I first undis
 ####2. Binary threshold of image
 I have defined function <b>color_threshold</b> to find binary threshold of my input image. First I convert the image to HLS color space and using thresold values for 'S' channel I calculate s_binary. Then using SobelX gradients I find gradient binary image sxbinary. Finally I combine these two binary images by adding the two and I get below image:
 ![alt tag](README_images/pipe_bin_thresh.png)
+
+####3. Transform Perspective of image
+I defined function <b>transform_perspective</b> to transform perspective of my previous binary warped image. The source and destination polygon points are as below:
+
+    src = np.array(
+        [[(img_size[1] / 2) - 60, img_size[0] / 2 + 100],
+        [((img_size[1] / 6) - 12), img_size[0]],
+        [(img_size[1] * 5 / 6) + 50, img_size[0]],
+        [(img_size[1] / 2 + 62), img_size[0] / 2 + 100]], np.float32)
+    dst = np.array(
+        [[(img_size[1] / 4), 0],
+        [(img_size[1] / 4), img_size[0]],
+        [(img_size[1] * 3 / 4), img_size[0]],
+        [(img_size[1] * 3 / 4), 0]], np.float32)
+        
+Using these src and dst points, I calculate M = cv2.getPerspectiveTransform(src, dst) and also Minv = cv2.getPerspectiveTransform(dst, src). Finally I warp the image by using cv2.warpPerspective and return the warped image along with the inverse warp coefficients Minv whic will be used later on in <b>transform_inv_perspective</b>.
+
+I also drew polygons for src and dst points to verify my warping function is working fine.
+![alt tag](README_images/pipe_persp_src.png)
+![alt tag](README_images/pipe_persp_dst.png)
+
+
