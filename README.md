@@ -78,7 +78,7 @@ I have uploaded the final video output to my git repository.
 
 ###Discussion
 Problems with the pipeline:
-* pipeline will not work for challenge video, since there is a distinctive line inside the lane which is detected as the edge. Thus gradient does not work here. Proper thresholding of yellow and white lines may work
+* Pipeline will not work for challenge video, since there is a distinctive line inside the lane which is detected as the edge. Thus gradient does not work here. Proper thresholding of yellow and white lines may work
 * The pipeline also does not work on the harder challenge video where there is lot of glare on the windshield. Some sort of polarization filtering can help reduce the glare.
 * The pipleine gives very varying radius of curvature, a better formula or algorithm can be used to calculate the radius of curvature.
 * Pipeline may fail for super bright roads like seen in harder challenge video. A good color scheme must be used to consider for the road brightness.
